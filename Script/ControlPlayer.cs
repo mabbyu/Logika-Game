@@ -43,18 +43,6 @@ public class ControlPlayer : MonoBehaviour
             count = count + 2;
             SetCountText();
         }
-        if (other.gameObject.CompareTag("Pick Up Gold"))
-        {
-            other.gameObject.SetActive(false);
-            count = count + 10;
-            SetCountText();
-        }
-        if (other.gameObject.CompareTag("Pick Up Silver"))
-        {
-            other.gameObject.SetActive(false);
-            count = count + 8;
-            SetCountText();
-        }
         if (other.gameObject.CompareTag("Pick Up Zonk"))
         {
             gameObject.SetActive(false);
