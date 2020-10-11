@@ -1,5 +1,6 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Threading;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,12 +9,18 @@ public class ControlPlayer : MonoBehaviour
 {
     private Rigidbody rb;
     public float speed;
-    private double count;
+    public double count;
     public Text countText;
+    public Text winText;
+    public Text loseText;
 
     void SetCountText()
     {
-        countText.text = "Count: " + count.ToString();
+        countText.text = " Point : " + count.ToString();
+        if (count >= 32)
+        {
+            winText.text = " YOU WIN! ";
+        }
     }
 
     void Start()
@@ -21,6 +28,8 @@ public class ControlPlayer : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         count = 0;
         SetCountText();
+        winText.text = "";
+        loseText.text = "";
     }
 
     void OnTriggerEnter(Collider other)
@@ -48,9 +57,10 @@ public class ControlPlayer : MonoBehaviour
             gameObject.SetActive(false);
             count = count;
             SetCountText();
+            loseText.text = " YOU LOSE! ";
         }
     }
-    
+
     void FixedUpdate()
     {
         float moveHorizontal = Input.GetAxis("Horizontal");
