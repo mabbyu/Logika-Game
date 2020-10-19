@@ -1,6 +1,7 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.Globalization;
 using System.Runtime.InteropServices;
 using System.Threading;
 using UnityEngine;
@@ -15,16 +16,20 @@ public class PlayerController : MonoBehaviour
     public float horizontalVelocity;
     private int count;
     public Text countText;
+    public Text winText;
+    public Text loseText;
 
     void SetCountText()
     {
-        countText.text = " Point : " + count.ToString();
+        countText.text = " Coin : " + count.ToString();
     }
 
     void Start()
     {
         count = 0;
         SetCountText();
+        winText.text = "";
+        loseText.text = "";
     }
 
     void Update()
@@ -48,10 +53,18 @@ public class PlayerController : MonoBehaviour
             gameObject.SetActive(false);
             count = count;
             SetCountText();
+            loseText.text = " YOU LOSE\nPress R to restart";
+        }
+        if (other.gameObject.CompareTag("End"))
+        {
+            other.gameObject.SetActive(false);
+            count = count;
+            SetCountText();
+            winText.text = " YOU WIN!\nPress R to restart ";
         }
     }
 
-    void FixedUpdate()
+   void FixedUpdate()
     {
         if (Input.GetButtonDown("Jump"))
             print("horizontalVelocity : " + horizontalVelocity + "; Time.deltaTime : " + Time.deltaTime + " >>x : " + horizontalVelocity * Time.deltaTime);
